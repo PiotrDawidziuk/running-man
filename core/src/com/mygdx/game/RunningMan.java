@@ -55,7 +55,7 @@ public class RunningMan extends ApplicationAdapter {
 		man[3] = new Texture("frame-4.png");
 		manY=Gdx.graphics.getHeight()/2;
 
-		coin = new Texture("coin.png");
+		coin = new Texture("envelope.png");
 		bomb = new Texture("bomb.png");
 		dizzy = new Texture("dizzy-1.png");
 
