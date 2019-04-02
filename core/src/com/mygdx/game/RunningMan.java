@@ -31,11 +31,11 @@ public class RunningMan extends ApplicationAdapter {
 
 	Random random;
 
-	ArrayList<Integer> coinXs = new ArrayList<Integer>();
-	ArrayList<Integer> coinYs = new ArrayList<Integer>();
-	ArrayList<Rectangle> coinRectangles = new ArrayList<Rectangle>();
-	Texture coin;
-	int coinCount;
+	ArrayList<Integer> envelopeXs = new ArrayList<Integer>();
+	ArrayList<Integer> envelopeYs = new ArrayList<Integer>();
+	ArrayList<Rectangle> envelopeRectangles = new ArrayList<Rectangle>();
+	Texture envelope;
+	int envelopeCount;
 
 	ArrayList<Integer> bombXs = new ArrayList<Integer>();
 	ArrayList<Integer> bombYs = new ArrayList<Integer>();
@@ -55,7 +55,7 @@ public class RunningMan extends ApplicationAdapter {
 		man[3] = new Texture("frame-4.png");
 		manY=Gdx.graphics.getHeight()/2;
 
-		coin = new Texture("envelope.png");
+		envelope = new Texture("envelope.png");
 		bomb = new Texture("bomb.png");
 		dizzy = new Texture("dizzy-1.png");
 
@@ -67,10 +67,10 @@ public class RunningMan extends ApplicationAdapter {
 
 	}
 
-	public void makeCoin(){
+	public void makeenvelope(){
 		float height = random.nextFloat() * Gdx.graphics.getHeight();
-		coinYs.add((int)height);
-		coinXs.add(Gdx.graphics.getWidth());
+		envelopeYs.add((int)height);
+		envelopeXs.add(Gdx.graphics.getWidth());
 
 	}
 
@@ -104,20 +104,20 @@ public class RunningMan extends ApplicationAdapter {
 				bombRectangles.add(new Rectangle(bombXs.get(i), bombYs.get(i), bomb.getWidth(), bomb.getHeight()));
 			}
 
-			//coins
-			if (coinCount < 100) {
-				coinCount++;
+			//envelopes
+			if (envelopeCount < 100) {
+				envelopeCount++;
 			} else {
-				coinCount = 0;
-				makeCoin();
+				envelopeCount = 0;
+				makeenvelope();
 			}
 
 
-			coinRectangles.clear();
-			for (int i = 0; i < coinXs.size(); i++) {
-				batch.draw(coin, coinXs.get(i), coinYs.get(i));
-				coinXs.set(i, coinXs.get(i) - 5);
-				coinRectangles.add(new Rectangle(coinXs.get(i), coinYs.get(i), coin.getWidth(), coin.getHeight()));
+			envelopeRectangles.clear();
+			for (int i = 0; i < envelopeXs.size(); i++) {
+				batch.draw(envelope, envelopeXs.get(i), envelopeYs.get(i));
+				envelopeXs.set(i, envelopeXs.get(i) - 5);
+				envelopeRectangles.add(new Rectangle(envelopeXs.get(i), envelopeYs.get(i), envelope.getWidth(), envelope.getHeight()));
 			}
 
 			if (Gdx.input.justTouched()) {
@@ -157,10 +157,10 @@ public class RunningMan extends ApplicationAdapter {
 				manY = Gdx.graphics.getHeight() / 2;
 				score = 0;
 				velocity = 0;
-				coinXs.clear();
-				coinYs.clear();
-				coinRectangles.clear();
-				coinCount = 0;
+				envelopeXs.clear();
+				envelopeYs.clear();
+				envelopeRectangles.clear();
+				envelopeCount = 0;
 				bombXs.clear();
 				bombYs.clear();
 				bombRectangles.clear();
@@ -178,13 +178,13 @@ public class RunningMan extends ApplicationAdapter {
 		}
 		manRectangle=new Rectangle(Gdx.graphics.getWidth()/2-man[manState].getWidth()/2,manY,man[manState].getWidth(),man[manState].getHeight());
 
-		for (int i=0; i<coinRectangles.size(); i++){
-			if(Intersector.overlaps(manRectangle,coinRectangles.get(i))){
-				//Gdx.app.log("Coin!","Collision!");
+		for (int i=0; i<envelopeRectangles.size(); i++){
+			if(Intersector.overlaps(manRectangle,envelopeRectangles.get(i))){
+				//Gdx.app.log("envelope!","Collision!");
 				score++;
-				coinRectangles.remove(i);
-				coinXs.remove(i);
-				coinYs.remove(i);
+				envelopeRectangles.remove(i);
+				envelopeXs.remove(i);
+				envelopeYs.remove(i);
 				break;
 			}
 		}
